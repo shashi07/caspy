@@ -1,0 +1,12 @@
+CREATE DATABASE IF NOT EXISTS caspy;
+CREATE USER 'caspy'@'localhost' IDENTIFIED BY 'caspy';
+USE caspy;
+grant all on `caspy`.* to 'caspy'@'localhost' identified by 'caspy';
+Drop table if exists dirs;
+Drop table if exists filelist;
+Drop table if exists hashes;
+Drop table if exists fileBlocks;
+create table dirs( dir_id int PRIMARY KEY AUTO_INCREMENT,dir_name varchar(100),parent_dir varchar(100),username varchar(25));
+create table filelist( filename varchar(25) not null, no_of_blocks int, dir_id int not null, CONSTRAINT fpk PRIMARY KEY (filename,dir_id), FOREIGN KEY (dir_id) REFERENCES dirs(dir_id));
+create table hashes(hash_id int primary key auto_increment,hash varchar(40) not null,size int not null);
+create table fileBlocks (id int primary key auto_increment, block_no int not null, fname varchar(25) not null, dir_id int not null, hash_id int not null, CONSTRAINT file_fk FOREIGN KEY (fname,dir_id) REFERENCES filelist(filename,dir_id));

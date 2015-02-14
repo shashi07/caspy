@@ -1,0 +1,4 @@
+*.pyc
+*.py~
+system/Files/*
+system/retFile/*
